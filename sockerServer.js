@@ -1,5 +1,5 @@
 const authSocket = require('./middleware/authSocket');
-const { setSocketServerInstance } = require('./serverStore');
+const { setSocketServerInstance, getOnlineUsers } = require('./serverStore');
 const disconnectHandler = require('./socketHandlers/disconnectHandler');
 const newConnectionHandler = require('./socketHandlers/newConnectionHandler');
 
