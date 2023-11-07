@@ -22,6 +22,41 @@ const updateFriendsPendingInvitations = async (userId) => {
   }
 };
 
+const updateFriends = async (userId) => {
+  try {
+    // find active connection of specific id (only online user)
+    const receiverList = serverStore.getActiveConnections(userId);
+
+    if (receiverList.length) {
+      const user = await User.findById(userId, {
+        _id: 1,
+        friends: 1,
+      }).populate('friends', '_id username mail ');
+
+      if (user) {
+        const friendsList = user.friends.map((friend) => {
+          return {
+            id: friend._id,
+            mail: friend.mail,
+            username: friend.username,
+          };
+        });
+
+        // get io instance, to emit event to all friends
+        const io = serverStore.getSocketServerInstance();
+        receiverList.forEach((receiverSocketId) => {
+          io.to(receiverSocketId).emit('friends-list', {
+            friends: friendsList ? friendsList : [],
+          });
+        });
+      }
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 module.exports = {
   updateFriendsPendingInvitations,
+  updateFriends,
 };
