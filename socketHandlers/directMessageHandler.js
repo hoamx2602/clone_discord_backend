@@ -1,6 +1,7 @@
 const Message = require('../models/message');
 const Conversation = require('../models/conversation');
 const { updateChatHistory } = require('./updates/chat');
+
 const directMessageHandler = async (socket, data) => {
   try {
     const { userId } = socket.user;
@@ -38,7 +39,7 @@ const directMessageHandler = async (socket, data) => {
       updateChatHistory(conversation._id.toString());
     }
   } catch (error) {
-    console.log('DEBUG=================error', error);
+    console.log('DEBUG=================directMessageHandler', error);
   }
 };
 
