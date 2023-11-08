@@ -1,6 +1,6 @@
-const User = require("../../models/user");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
+const User = require('../../models/user');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 const postLogin = async (req, res) => {
   try {
@@ -17,7 +17,7 @@ const postLogin = async (req, res) => {
         },
         process.env.TOKEN_KEY,
         {
-          expiresIn: "24h",
+          expiresIn: '24h',
         }
       );
 
@@ -26,13 +26,14 @@ const postLogin = async (req, res) => {
           mail: user.mail,
           token: token,
           username: user.username,
+          _id: user._id,
         },
       });
     }
 
-    return res.status(400).send("Invalid credentials. Please try again");
+    return res.status(400).send('Invalid credentials. Please try again');
   } catch (err) {
-    return res.status(500).send("Something went wrong. Please try again");
+    return res.status(500).send('Something went wrong. Please try again');
   }
 };
 
