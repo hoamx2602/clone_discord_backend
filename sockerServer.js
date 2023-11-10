@@ -6,6 +6,7 @@ const directMessageHandler = require('./socketHandlers/directMessageHandler.js')
 const directChatHistoryHandler = require('./socketHandlers/directChatHistoryHandler.js');
 const roomCreateHandler = require('./socketHandlers/roomCreateHandler.js');
 const roomJoinHandler = require('./socketHandlers/roomJoinHandler.js');
+const roomLeaveHandler = require('./socketHandlers/roomLeaveHandler.js');
 
 const registerSocketServer = (server) => {
   const io = require('socket.io')(server, {
@@ -49,6 +50,10 @@ const registerSocketServer = (server) => {
 
     socket.on('room-join', (data) => {
       roomJoinHandler(socket, data);
+    });
+
+    socket.on('room-leave', (data) => {
+      roomLeaveHandler(socket, data);
     });
 
     socket.on('disconnect', () => {
