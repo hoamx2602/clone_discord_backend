@@ -17,3 +17,5 @@ const roomJoinHandler = (socket, data) => {
 
   console.log('DEBUG=================activeRooms', activeRooms);
 };
+
+module.exports = roomJoinHandler;
