@@ -15,7 +15,6 @@ const roomJoinHandler = (socket, data) => {
 
   roomUpdates.updateRooms();
 
-  console.log('DEBUG=================activeRooms', activeRooms);
 };
 
 module.exports = roomJoinHandler;

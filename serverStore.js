@@ -101,18 +101,19 @@ const joinActiveRoom = (roomId, newParticipant) => {
   activeRooms.push(updatedRoom);
 };
 
-const leaveActiveRoom = (roomId, participantId) => {
-  const activeRoom = activeRooms.find((room) => room.room_id === roomId);
+const leaveActiveRoom = (roomId, participantSocketId) => {
+  const activeRoom = activeRooms.find((room) => room.roomId === roomId);
 
   if (activeRoom) {
-    const copyOfActiveRoom = { ...activeRooms };
-    copyOfActiveRoom = { ...activeRoom };
+    const copyOfActiveRoom = { ...activeRoom };
 
-    copyOfActiveRoom.participants = copyOfActiveRoom.participantId.filter(
-      (participant) => participant.socketId !== roomId
+    copyOfActiveRoom.participants = copyOfActiveRoom.participants.filter(
+      (participant) => participant.socketId !== participantSocketId
     );
 
-    activeRooms = activeRoomHandler.filter((room) => {});
+    activeRooms = activeRooms.filter((room) => {
+      return room.roomId !== roomId
+    });
 
     if (copyOfActiveRoom.participants.length > 0) {
       activeRooms.push(copyOfActiveRoom);
