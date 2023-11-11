@@ -3,12 +3,12 @@ const {
   getActiveRooms,
 } = require('../../serverStore');
 
-const updateRooms = (toSpecifiedTargetId = null) => {
+const updateRooms = (toSpecifiedSocketId = null) => {
   const io = getSocketServerInstance();
   const activeRooms = getActiveRooms();
 
-  if (toSpecifiedTargetId) {
-    io.to(toSpecifiedTargetId).emit('active-rooms', {
+  if (toSpecifiedSocketId) {
+    io.to(toSpecifiedSocketId).emit('active-rooms', {
       activeRooms,
     });
   } else {
